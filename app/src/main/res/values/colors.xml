@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Colores básicos -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="gray_500">#9E9E9E</color>
+    <color name="red_500">#F44336</color>
+    <color name="terracota">#D2691E</color>           <!-- Chocolate - Color terracota/café -->
+    <color name="menta">#98FB98</color>               <!-- Pale Green - Color menta suave -->
+    <color name="celeste">#ADD8E6</color>             <!-- Light Blue - Color celeste suave -->
+    
+    <!-- Nueva paleta azul/celeste pastel -->
+    <!-- Azules principales -->
+    <color name="blue_primary">#87CEEB</color>        <!-- Sky Blue - Color principal -->
+    <color name="blue_primary_dark">#5F9EA0</color>   <!-- Cadet Blue - Variante oscura -->
+    <color name="blue_primary_light">#B0E0E6</color>  <!-- Powder Blue - Variante clara -->
+    
+    <!-- Celestes pasteles -->
+    <color name="celeste_light">#E0F6FF</color>       <!-- Celeste muy claro -->
+    <color name="celeste_medium">#B8E6FF</color>      <!-- Celeste medio -->
+    <color name="celeste_soft">#ADD8E6</color>        <!-- Light Blue -->
+    
+    <!-- Azules de acento -->
+    <color name="blue_accent">#4FC3F7</color>         <!-- Light Blue 300 -->
+    <color name="blue_accent_dark">#0288D1</color>    <!-- Light Blue 700 -->
+    
+    <!-- Colores de superficie y fondo -->
+    <color name="blue_surface">#F0F8FF</color>        <!-- Alice Blue - Fondo suave -->
+    <color name="blue_surface_variant">#E1F5FE</color> <!-- Light Blue 50 -->
+    
+    <!-- Colores funcionales -->
+    <color name="blue_success">#4CAF50</color>        <!-- Verde para éxito -->
+    <color name="blue_warning">#FF9800</color>        <!-- Naranja para advertencias -->
+    <color name="blue_error">#F44336</color>          <!-- Rojo para errores -->
+    
+    <!-- Colores de texto sobre fondos azules -->
+    <color name="text_on_blue">#1565C0</color>        <!-- Azul oscuro para texto -->
+    <color name="text_secondary_blue">#546E7A</color>  <!-- Azul grisáceo para texto secundario -->
+    
+    <!-- 🎨 PALETA ESTACIONAL PARA NAVEGACIÓN -->
+    <!-- 🍂 Otoño - MapsActivity (Naranja quemado) -->
+    <color name="autumn_primary">#CC5500</color>      <!-- Naranja quemado - cálido y terroso -->
+    <color name="autumn_accent">#FF7F50</color>       <!-- Coral - Naranja suave -->
+    <color name="autumn_light">#FFE4B5</color>        <!-- Moccasin - Naranja muy claro -->
+    
+    <!-- ❄️ Invierno - PerfilActivity (Azul hielo) -->
+    <color name="winter_primary">#B0E0E6</color>      <!-- Powder Blue - Azul hielo fresco -->
+    <color name="winter_accent">#87CEEB</color>       <!-- Sky Blue - Azul cielo -->
+    <color name="winter_light">#F0F8FF</color>        <!-- Alice Blue - Azul muy suave -->
+    
+    <!-- 🌸 Primavera - ChatBot (Verde claro) -->
+    <color name="spring_primary">#90EE90</color>      <!-- Light Green - Verde claro vibrante -->
+    <color name="spring_accent">#98FB98</color>       <!-- Pale Green - Verde menta -->
+    <color name="spring_light">#F0FFF0</color>        <!-- Honeydew - Verde muy suave -->
+    
+    <!-- ☀️ Verano - Historial (Amarillo brillante) -->
+    <color name="summer_primary">#FFD700</color>      <!-- Gold - Amarillo brillante -->
+    <color name="summer_accent">#FFFF00</color>       <!-- Yellow - Amarillo puro -->
+    <color name="summer_light">#FFFACD</color>        <!-- Lemon Chiffon - Amarillo suave -->
+    
+    <!-- Mantener colores originales para compatibilidad -->
+    <color name="purple_500">#87CEEB</color>          <!-- Ahora mapea a azul -->
+</resources>

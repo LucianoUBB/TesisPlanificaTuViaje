@@ -1,0 +1,28 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Dark theme with blue/celeste palette -->
+    <style name="Base.Theme.TesisPlanificaTuViaje" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Colores principales para modo oscuro -->
+        <item name="colorPrimary">@color/blue_accent</item>
+        <item name="colorPrimaryVariant">@color/blue_accent_dark</item>
+        <item name="colorOnPrimary">@color/black</item>
+        
+        <!-- Colores secundarios para modo oscuro -->
+        <item name="colorSecondary">@color/blue_primary_light</item>
+        <item name="colorSecondaryVariant">@color/blue_primary</item>
+        <item name="colorOnSecondary">@color/black</item>
+        
+        <!-- Colores de superficie y fondo para modo oscuro -->
+        <item name="colorSurface">#1E3A5F</item>
+        <item name="colorOnSurface">@color/celeste_light</item>
+        <item name="android:colorBackground">#0D1B2A</item>
+        <item name="colorOnBackground">@color/celeste_light</item>
+        
+        <!-- Color de error -->
+        <item name="colorError">@color/blue_error</item>
+        <item name="colorOnError">@color/white</item>
+        
+        <!-- Personalización para modo oscuro -->
+        <item name="android:statusBarColor">#0D1B2A</item>
+        <item name="android:navigationBarColor">#1E3A5F</item>
+    </style>
+</resources>

@@ -1,0 +1,6 @@
+<resources>
+    <!-- 🔑 Clave de la API de Google Maps -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        AIzaSyDVYWMWLNEanEJrVdCMpNR8zqKhCeHf-7s
+    </string>
+</resources>

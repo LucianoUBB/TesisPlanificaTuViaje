@@ -1,0 +1,54 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme with blue/celeste palette -->
+    <style name="Base.Theme.TesisPlanificaTuViaje" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Colores principales de la paleta azul -->
+        <item name="colorPrimary">@color/blue_primary</item>
+        <item name="colorPrimaryVariant">@color/blue_primary_dark</item>
+        <item name="colorOnPrimary">@color/white</item>
+        
+        <!-- Colores secundarios -->
+        <item name="colorSecondary">@color/blue_accent</item>
+        <item name="colorSecondaryVariant">@color/blue_accent_dark</item>
+        <item name="colorOnSecondary">@color/white</item>
+        
+        <!-- Colores de superficie y fondo -->
+        <item name="colorSurface">@color/blue_surface</item>
+        <item name="colorOnSurface">@color/text_on_blue</item>
+        <item name="android:colorBackground">@color/blue_surface</item>
+        <item name="colorOnBackground">@color/text_on_blue</item>
+        <item name="android:windowBackground">@drawable/background_app</item>
+        
+        <!-- Color de error -->
+        <item name="colorError">@color/blue_error</item>
+        <item name="colorOnError">@color/white</item>
+        
+        <!-- Personalización adicional para botones y elementos -->
+        <item name="materialButtonStyle">@style/BlueButton</item>
+        <item name="android:statusBarColor">@color/blue_primary_dark</item>
+        <item name="android:navigationBarColor">@color/blue_primary</item>
+    </style>
+
+    <style name="Theme.TesisPlanificaTuViaje" parent="Base.Theme.TesisPlanificaTuViaje" />
+    
+    <!-- Estilo personalizado para botones azules -->
+    <style name="BlueButton" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/blue_primary</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="cornerRadius">12dp</item>
+        <item name="android:elevation">4dp</item>
+    </style>
+    
+    <!-- Estilo para botones secundarios -->
+    <style name="BlueButtonSecondary" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="strokeColor">@color/blue_primary</item>
+        <item name="android:textColor">@color/blue_primary</item>
+        <item name="cornerRadius">12dp</item>
+    </style>
+    
+    <!-- Estilo para campos de texto -->
+    <style name="BlueEditText" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/blue_primary</item>
+        <item name="hintTextColor">@color/blue_accent</item>
+        <item name="android:textColorHint">@color/text_secondary_blue</item>
+    </style>
+</resources>

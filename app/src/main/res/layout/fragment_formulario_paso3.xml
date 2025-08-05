@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#E6F0F8FF"
+        android:padding="24dp"
+        android:elevation="4dp">
+
+        <!-- Indicador de Progreso -->
+        <TextView
+            android:id="@+id/tvProgreso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Paso 3 de 6"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Título del Paso -->
+        <TextView
+            android:id="@+id/tvTituloPaso3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vacaciones y Actividades"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#2196F3"
+            android:layout_marginBottom="32dp"
+            android:layout_gravity="center_horizontal"/>
+
+        <!-- Vacaciones -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¿Qué tipo de vacaciones prefieres? (Puedes seleccionar varios)"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:layout_marginBottom="12dp"/>
+
+        <CheckBox
+            android:id="@+id/cbPlaya"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Playa"
+            android:textSize="16sp"
+            android:padding="12dp"/>
+
+        <CheckBox
+            android:id="@+id/cbMontana"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Montaña"
+            android:textSize="16sp"
+            android:padding="12dp"/>
+
+        <CheckBox
+            android:id="@+id/cbCampo"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Campo"
+            android:textSize="16sp"
+            android:padding="12dp"/>
+
+        <CheckBox
+            android:id="@+id/cbCiudad"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Ciudad"
+            android:textSize="16sp"
+            android:padding="12dp"/>
+
+        <CheckBox
+            android:id="@+id/cbCamping"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Camping"
+            android:textSize="16sp"
+            android:padding="12dp"/>
+
+        <CheckBox
+            android:id="@+id/cbVacacionesOtro"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Otro"
+            android:textSize="16sp"
+            android:padding="12dp"/>
+
+        <EditText
+            android:id="@+id/edtVacacionesOtro"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:hint="Especifica otro tipo de vacaciones"
+            android:inputType="text"
+            android:background="@drawable/edittext_background"
+            android:padding="16dp"
+            android:textSize="16sp"
+            android:layout_marginBottom="24dp"
+            android:visibility="gone"/>
+
+        <!-- Actividades -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¿Qué actividades prefieres? (Puedes seleccionar varios)"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:layout_marginBottom="12dp"/>
+
+        <CheckBox
+            android:id="@+id/cbDescansar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Descansar"
+            android:textSize="16sp"
+            android:padding="12dp"/>
+
+        <CheckBox
+            android:id="@+id/cbCaminar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Caminar"
+            android:textSize="16sp"
+            android:padding="12dp"/>
+
+        <CheckBox
+            android:id="@+id/cbLeer"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Leer"
+            android:textSize="16sp"
+            android:padding="12dp"/>
+
+        <CheckBox
+            android:id="@+id/cbNadar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Nadar"
+            android:textSize="16sp"
+            android:padding="12dp"/>
+
+        <CheckBox
+            android:id="@+id/cbBailar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Bailar"
+            android:textSize="16sp"
+            android:padding="12dp"/>
+
+        <CheckBox
+            android:id="@+id/cbCocinar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Cocinar"
+            android:textSize="16sp"
+            android:padding="12dp"/>
+
+        <CheckBox
+            android:id="@+id/cbActividadesOtro"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Otro"
+            android:textSize="16sp"
+            android:padding="12dp"/>
+
+        <EditText
+            android:id="@+id/edtActividadesOtro"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:hint="Especifica otra actividad"
+            android:inputType="text"
+            android:background="@drawable/edittext_background"
+            android:padding="16dp"
+            android:textSize="16sp"
+            android:layout_marginBottom="32dp"
+            android:visibility="gone"/>
+
+        <!-- Botones de Navegación -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <Button
+                android:id="@+id/btnAnterior"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_weight="1"
+                android:text="ANTERIOR"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#2196F3"
+                android:background="@drawable/button_secondary_background"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/btnSiguiente"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_weight="1"
+                android:text="SIGUIENTE"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/button_primary_background"
+                android:layout_marginStart="8dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

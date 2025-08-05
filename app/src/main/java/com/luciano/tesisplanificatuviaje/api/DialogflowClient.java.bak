@@ -1,0 +1,125 @@
+package com.luciano.tesisplanificatuviaje.api;
+
+import android.content.Context;
+import android.util.Log;
+
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.auth.oauth2.ServiceAccountCredentials;
+import com.google.cloud.dialogflow.v2.DetectIntentRequest;
+import com.google.cloud.dialogflow.v2.DetectIntentResponse;
+import com.google.cloud.dialogflow.v2.QueryInput;
+import com.google.cloud.dialogflow.v2.SessionName;
+import com.google.cloud.dialogflow.v2.SessionsClient;
+import com.google.cloud.dialogflow.v2.TextInput;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.UUID;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+public class DialogflowClient {
+
+    private static final String TAG = "DialogflowClient";
+    
+    // 🔧 Configuración temporal - cambiar por tus valores reales
+    private static final String PROJECT_ID = "tu-proyecto-dialogflow";  // Cambiar por tu Project ID
+    private static final String SESSION_ID = UUID.randomUUID().toString();
+    private static final String LANGUAGE_CODE = "es";  // Español
+    
+    // Cliente para Dialogflow nativo (opción recomendada)
+    private static SessionsClient sessionsClient;
+    private static SessionName sessionName;
+    
+    // Cliente REST como alternativa (más simple para empezar)
+    private static DialogflowService restService;
+    
+    /**
+     * 🤖 Inicializar cliente nativo de Dialogflow (Opción 1 - Recomendada)
+     */
+    public static void initializeNativeClient(Context context) {
+        try {
+            // Cargar credenciales desde assets/dialogflow-credentials.json
+            InputStream credentialsStream = context.getAssets().open("dialogflow-credentials.json");
+            GoogleCredentials credentials = ServiceAccountCredentials.fromStream(credentialsStream);
+            
+            sessionsClient = SessionsClient.create();
+            sessionName = SessionName.of(PROJECT_ID, SESSION_ID);
+            
+            Log.d(TAG, "✅ Cliente nativo de Dialogflow inicializado");
+            
+        } catch (IOException e) {
+            Log.e(TAG, "❌ Error inicializando cliente nativo", e);
+            // Fallback a cliente REST
+            initializeRestClient();
+        }
+    }
+    
+    /**
+     * 🌐 Inicializar cliente REST (Opción 2 - Más simple)
+     */
+    public static void initializeRestClient() {
+        if (restService == null) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl("https://dialogflow.googleapis.com/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+                    
+            restService = retrofit.create(DialogflowService.class);
+            Log.d(TAG, "✅ Cliente REST de Dialogflow inicializado");
+        }
+    }
+    
+    /**
+     * 💬 Enviar mensaje usando cliente nativo
+     */
+    public static String sendMessageNative(String messageText) {
+        try {
+            if (sessionsClient == null || sessionName == null) {
+                return "Error: Cliente no inicializado";
+            }
+            
+            TextInput textInput = TextInput.newBuilder()
+                    .setText(messageText)
+                    .setLanguageCode(LANGUAGE_CODE)
+                    .build();
+                    
+            QueryInput queryInput = QueryInput.newBuilder()
+                    .setText(textInput)
+                    .build();
+                    
+            DetectIntentRequest detectIntentRequest = DetectIntentRequest.newBuilder()
+                    .setSession(sessionName.toString())
+                    .setQueryInput(queryInput)
+                    .build();
+                    
+            DetectIntentResponse response = sessionsClient.detectIntent(detectIntentRequest);
+            
+            return response.getQueryResult().getFulfillmentText();
+            
+        } catch (Exception e) {
+            Log.e(TAG, "❌ Error enviando mensaje nativo", e);
+            return "Lo siento, hubo un error procesando tu mensaje.";
+        }
+    }
+    
+    /**
+     * 🌐 Obtener servicio REST
+     */
+    public static DialogflowService getRestService() {
+        if (restService == null) {
+            initializeRestClient();
+        }
+        return restService;
+    }
+    
+    // Getters para usar en otros lugares
+    public static String getProjectId() {
+        return PROJECT_ID;
+    }
+    
+    public static String getSessionId() {
+        return SESSION_ID;
+    }
+}

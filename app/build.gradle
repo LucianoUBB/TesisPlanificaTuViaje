@@ -1,0 +1,80 @@
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
+    id 'com.google.gms.google-services' // Firebase plugin debe ir al final
+}
+
+android {
+    namespace 'com.luciano.tesisplanificatuviaje'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.luciano.tesisplanificatuviaje"
+        minSdk 24
+        targetSdk 35
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    packaging {
+        resources {
+            excludes += ['META-INF/DEPENDENCIES', 'META-INF/LICENSE', 'META-INF/LICENSE.txt', 'META-INF/NOTICE', 'META-INF/NOTICE.txt']
+            pickFirsts += ['google/protobuf/type.proto', 'google/protobuf/descriptor.proto']
+        }
+    }
+}
+
+dependencies {
+    // Jetpack & UI
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.activity
+    implementation libs.constraintlayout
+
+    // Google Maps
+    implementation libs.play.services.maps
+
+    // Google Play Services
+    implementation 'com.google.android.gms:play-services-base:18.2.0'
+    implementation 'com.google.android.gms:play-services-auth:20.7.0'
+
+    // Firebase (BoM: Bill of Materials) - Versión más reciente para evitar conflictos
+    implementation platform('com.google.firebase:firebase-bom:33.5.1')
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.google.firebase:firebase-analytics'
+
+    // Test
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+
+    // Retrofit para comunicación con backend
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
+
+    // Excluir dependencias conflictivas
+    configurations.implementation {
+        exclude group: 'com.google.api.grpc', module: 'proto-google-common-protos'
+        exclude group: 'com.google.protobuf', module: 'protobuf-java'
+    }
+}

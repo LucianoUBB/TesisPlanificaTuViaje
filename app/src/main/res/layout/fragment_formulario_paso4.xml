@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#E6F0F8FF"
+        android:padding="24dp"
+        android:elevation="4dp">
+
+        <!-- Indicador de Progreso -->
+        <TextView
+            android:id="@+id/tvProgreso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Paso 4 de 6"
+            android:textSize="14sp"
+            android:textColor="#666666"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Título del Paso -->
+        <TextView
+            android:id="@+id/tvTituloPaso4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Preferencias de Viaje"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#2196F3"
+            android:layout_marginBottom="32dp"
+            android:layout_gravity="center_horizontal"/>
+
+        <!-- Estación -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="21dp"
+            android:layout_marginBottom="12dp"
+            android:text="¿En qué estación del año prefieres viajar?"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/radioEstacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+
+            <RadioButton
+                android:id="@+id/rbVerano"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Verano"
+                android:textSize="16sp"
+                android:padding="12dp"/>
+
+            <RadioButton
+                android:id="@+id/rbOtono"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Otoño"
+                android:textSize="16sp"
+                android:padding="12dp"/>
+
+            <RadioButton
+                android:id="@+id/rbInvierno"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Invierno"
+                android:textSize="16sp"
+                android:padding="12dp"/>
+
+            <RadioButton
+                android:id="@+id/rbPrimavera"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Primavera"
+                android:textSize="16sp"
+                android:padding="12dp"/>
+
+        </RadioGroup>
+
+        <!-- Transporte -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¿Qué medio de transporte prefieres para viajar?"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:layout_marginBottom="12dp"/>
+
+        <RadioGroup
+            android:id="@+id/radioTransporte"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+
+            <RadioButton
+                android:id="@+id/rbAuto"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Auto"
+                android:textSize="16sp"
+                android:padding="12dp"/>
+
+            <RadioButton
+                android:id="@+id/rbAvion"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Avión"
+                android:textSize="16sp"
+                android:padding="12dp"/>
+
+            <RadioButton
+                android:id="@+id/rbBus"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Bus"
+                android:textSize="16sp"
+                android:padding="12dp"/>
+
+            <RadioButton
+                android:id="@+id/rbTren"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Tren"
+                android:textSize="16sp"
+                android:padding="12dp"/>
+
+            <RadioButton
+                android:id="@+id/rbTransporteOtro"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Otro"
+                android:textSize="16sp"
+                android:padding="12dp"/>
+
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/edtTransporteOtro"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:hint="Especifica otro medio de transporte"
+            android:inputType="text"
+            android:background="@drawable/edittext_background"
+            android:padding="16dp"
+            android:textSize="16sp"
+            android:layout_marginBottom="24dp"
+            android:visibility="gone"/>
+
+        <!-- Presupuesto -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¿Cuál es tu presupuesto de viaje?"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:layout_marginBottom="12dp"/>
+
+        <RadioGroup
+            android:id="@+id/radioPresupuesto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp">
+
+            <RadioButton
+                android:id="@+id/rbEconomico"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Bajo ($0 - $500)"
+                android:textSize="16sp"
+                android:padding="12dp"/>
+
+            <RadioButton
+                android:id="@+id/rbMedio"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Medio ($500 - $2,500)"
+                android:textSize="16sp"
+                android:padding="12dp"/>
+
+            <RadioButton
+                android:id="@+id/rbAlto"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Alto (Más de $2,500)"
+                android:textSize="16sp"
+                android:padding="12dp"/>
+
+        </RadioGroup>
+
+        <!-- Botones de Navegación -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <Button
+                android:id="@+id/btnAnterior"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_weight="1"
+                android:text="ANTERIOR"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#2196F3"
+                android:background="@drawable/button_secondary_background"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/btnSiguiente"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_weight="1"
+                android:text="SIGUIENTE"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/button_primary_background"
+                android:layout_marginStart="8dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
