@@ -106,7 +106,7 @@ public class PerfilActivity extends AppCompatActivity {
     }
 
     private void editarPreferencias() {
-        Log.d(TAG, "✏️ Navegando a editar preferencias");
+        Log.d(TAG, "Navegando a editar preferencias");
         
         // Crear intent para ir al FormularioActivity en modo edición
         Intent intent = new Intent(PerfilActivity.this, FormularioActivity.class);
@@ -116,7 +116,7 @@ public class PerfilActivity extends AppCompatActivity {
         startActivity(intent);
         
         // No llamar finish() para mantener el perfil en el stack y poder volver
-        Log.d(TAG, "🔄 FormularioActivity iniciado en modo edición");
+        Log.d(TAG, "FormularioActivity iniciado en modo edición");
     }
 
     private void confirmarCerrarSesion() {

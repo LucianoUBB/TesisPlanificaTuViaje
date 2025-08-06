@@ -115,12 +115,12 @@ public class FormularioPaso1Fragment extends Fragment {
                     android.util.Log.d("FormularioPaso1", "Usando edad existente (no editable): " + edad);
                 } else {
                     // Error: no hay edad guardada pero el campo está deshabilitado
-                    android.util.Log.e("FormularioPaso1", "❌ Error: Campo edad deshabilitado pero no hay datos guardados");
+                    android.util.Log.e("FormularioPaso1", "Error: Campo edad deshabilitado pero no hay datos guardados");
                     Toast.makeText(getContext(), "Error en la configuración de edad", Toast.LENGTH_SHORT).show();
                     return;
                 }
             } else {
-                android.util.Log.e("FormularioPaso1", "❌ Error: No se pudo acceder a FormularioActivity");
+                android.util.Log.e("FormularioPaso1", "Error: No se pudo acceder a FormularioActivity");
                 return;
             }
         }
@@ -202,7 +202,7 @@ public class FormularioPaso1Fragment extends Fragment {
                 
                 if (edadObj instanceof Integer) {
                     // Hay edad guardada, está en modo edición
-                    android.util.Log.d("FormularioPaso1", "🔒 Modo edición detectado - Bloqueando edición de edad");
+                    android.util.Log.d("FormularioPaso1", "Modo edición detectado - Bloqueando edición de edad");
                     
                     // Deshabilitar la edición del campo edad
                     edtEdad.setEnabled(false);
@@ -215,7 +215,7 @@ public class FormularioPaso1Fragment extends Fragment {
                     // Agregar hint explicativo
                     edtEdad.setHint("Edad no editable");
                     
-                    android.util.Log.d("FormularioPaso1", "✅ Campo edad bloqueado para edición");
+                    android.util.Log.d("FormularioPaso1", "Campo edad bloqueado para edición");
                 } else {
                     // No hay edad guardada, es registro nuevo
                     android.util.Log.d("FormularioPaso1", "Registro nuevo - Edad editable");
