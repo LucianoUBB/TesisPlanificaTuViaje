@@ -32,3 +32,4 @@ public class Usuario {
     public Preferencias getPreferencias() { return preferencias; }
     public void setPreferencias(Preferencias preferencias) { this.preferencias = preferencias; }
 }
+

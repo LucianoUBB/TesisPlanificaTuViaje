@@ -1,0 +1,19 @@
+<resources>
+    <!-- 🔑 Clave de la API de Google Maps -->
+    <!-- 
+        INSTRUCCIONES PARA DESARROLLADORES:
+        
+        1. Copia este archivo a: app/src/main/res/values/google_maps_api.xml
+        2. Reemplaza YOUR_API_KEY_HERE con tu clave real de Google Maps
+        3. Obtén tu API Key en: https://console.developers.google.com/
+        4. Habilita la API de Google Maps en tu proyecto
+        
+        IMPORTANTE: 
+        - Este archivo NO debe subirse a Git por seguridad
+        - Cada desarrollador debe configurar su propia API Key
+        - Mantén tu API Key segura y privada
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        YOUR_API_KEY_HERE
+    </string>
+</resources>

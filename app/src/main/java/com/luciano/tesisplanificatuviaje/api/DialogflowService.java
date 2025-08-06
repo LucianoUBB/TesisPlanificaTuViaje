@@ -14,3 +14,4 @@ public interface DialogflowService {
     @POST("detectIntent")
     Call<MessageResponse> sendMessage(@Body MessageRequest request);
 }
+

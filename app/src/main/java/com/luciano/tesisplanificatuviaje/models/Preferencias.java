@@ -27,3 +27,4 @@ public class Preferencias {
     public String getUbicacionPreferida() { return ubicacionPreferida; }
     public void setUbicacionPreferida(String ubicacionPreferida) { this.ubicacionPreferida = ubicacionPreferida; }
 }
+

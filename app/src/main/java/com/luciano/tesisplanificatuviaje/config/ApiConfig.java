@@ -42,3 +42,4 @@ public class ApiConfig {
         return CURRENT_BASE_URL.equals(UNIVERSITY_BASE_URL);
     }
 }
+

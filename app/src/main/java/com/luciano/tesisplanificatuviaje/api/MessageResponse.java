@@ -12,3 +12,4 @@ public class MessageResponse {
         public String fulfillmentText;
     }
 }
+

@@ -47,3 +47,4 @@ public class Recomendacion {
     public String getFechaCreacion() { return fechaCreacion; }
     public void setFechaCreacion(String fechaCreacion) { this.fechaCreacion = fechaCreacion; }
 }
+

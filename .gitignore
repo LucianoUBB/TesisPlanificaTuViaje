@@ -29,5 +29,18 @@ render.experimental.xml
 # Google Services (e.g. APIs or Firebase)
 google-services.json
 
+# 🔐 CONFIGURACIÓN SENSIBLE - NO SUBIR A GIT
+# Google Maps API Keys
+app/src/main/res/values/google_maps_api.xml
+app/src/debug/res/values/google_maps_api.xml
+app/src/release/res/values/google_maps_api.xml
+
+# API Keys y configuración local
+api_keys.properties
+secrets.properties
+.env
+.env.local
+.env.*.local
+
 # Android Profiling
 *.hprof

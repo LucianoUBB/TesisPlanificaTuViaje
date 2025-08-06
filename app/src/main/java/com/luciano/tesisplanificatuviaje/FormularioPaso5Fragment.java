@@ -14,10 +14,10 @@ import java.util.Map;
 
 public class FormularioPaso5Fragment extends Fragment {
 
-    // TipoP2: RadioGroup para planificación
+    // RadioGroup para planificación
     private RadioGroup radioPlanificacion;
 
-    // TipoP1: CheckBoxes para deportes
+    // CheckBoxes para deportes
     private CheckBox cbDeportesFutbol, cbDeportesBasket, cbDeportesTenis, cbDeportesNatacion, 
                      cbDeportesVoley, cbDeportesCorrer, cbDeportesCiclismo, cbDeportesSenderismo,
                      cbDeportesOtro, cbDeportesNinguno;
@@ -32,7 +32,7 @@ public class FormularioPaso5Fragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        android.util.Log.d("FormularioPaso5", "🔧 onCreateView iniciado");
+        android.util.Log.d("FormularioPaso5", "onCreateView iniciado");
         
         View view = inflater.inflate(R.layout.fragment_formulario_paso5, container, false);
 
@@ -41,10 +41,10 @@ public class FormularioPaso5Fragment extends Fragment {
             tvTitulo = view.findViewById(R.id.tvTituloPaso5);
             tvProgreso = view.findViewById(R.id.tvProgreso);
             
-            // RadioGroup para planificación
+            // Configurar RadioGroup
             radioPlanificacion = view.findViewById(R.id.radioPlanificacion);
 
-            // CheckBoxes para deportes
+            // Configurar CheckBoxes deportes
             cbDeportesFutbol = view.findViewById(R.id.cbFutbol);
             cbDeportesNatacion = view.findViewById(R.id.cbNatacion);
             cbDeportesCorrer = view.findViewById(R.id.cbCorrer);
@@ -56,13 +56,12 @@ public class FormularioPaso5Fragment extends Fragment {
             cbDeportesOtro = view.findViewById(R.id.cbDeportesOtro);
             edtDeportesOtro = view.findViewById(R.id.edtDeportesOtro);
             cbDeportesNinguno = view.findViewById(R.id.cbNinguno);
-            cbDeportesNinguno = view.findViewById(R.id.cbNinguno);
 
-            // Botones de navegación
+            // Configurar botones
             btnAnterior = view.findViewById(R.id.btnAnterior);
             btnSiguiente = view.findViewById(R.id.btnSiguiente);
 
-            // Configurar progreso
+            // Configurar progreso y título
             if (getActivity() instanceof FormularioActivity) {
                 FormularioActivity activity = (FormularioActivity) getActivity();
                 tvProgreso.setText("Paso " + activity.getPasoActual() + " de " + activity.getTotalPasos());
@@ -73,18 +72,18 @@ public class FormularioPaso5Fragment extends Fragment {
                 tvTitulo.setText("Planificación y Deportes");
             }
 
-            // Verificar que todos los elementos se encontraron
+            // Verificar inicialización y configurar listeners
             if (radioPlanificacion != null && cbDeportesFutbol != null && 
                 btnAnterior != null && btnSiguiente != null) {
 
                 android.util.Log.d("FormularioPaso5", "Todas las vistas inicializadas correctamente");
 
-                // Configurar listeners
+                // Configurar eventos
                 configurarListenersDeportes();
                 btnAnterior.setOnClickListener(v -> irAlPasoAnterior());
                 btnSiguiente.setOnClickListener(v -> validarYContinuar());
                 
-                // Restaurar datos guardados previamente
+                // Restaurar datos previos
                 restaurarDatos();
                 
             } else {
@@ -100,7 +99,7 @@ public class FormularioPaso5Fragment extends Fragment {
 
     private void configurarListenersDeportes() {
         try {
-            // Cuando se selecciona "Ninguno", deseleccionar otros deportes
+            // Al seleccionar "Ninguno", deseleccionar otros deportes
             cbDeportesNinguno.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
                     cbDeportesFutbol.setChecked(false);
@@ -117,7 +116,7 @@ public class FormularioPaso5Fragment extends Fragment {
                 }
             });
 
-            // Configurar comportamiento del campo "Otro"
+            // Configurar campo "Otro"
             cbDeportesOtro.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
                     cbDeportesNinguno.setChecked(false);
@@ -128,7 +127,7 @@ public class FormularioPaso5Fragment extends Fragment {
                 }
             });
 
-            // Cuando se selecciona cualquier deporte, deseleccionar "Ninguno"
+            // Al seleccionar cualquier deporte, deseleccionar "Ninguno"
             View.OnClickListener deselectNinguno = v -> {
                 if (((CheckBox) v).isChecked()) {
                     cbDeportesNinguno.setChecked(false);
@@ -161,15 +160,15 @@ public class FormularioPaso5Fragment extends Fragment {
     private void validarYContinuar() {
         android.util.Log.d("FormularioPaso5", "Iniciando validación del Paso 5");
 
-        // Validar planificación (TipoP2 - selección única obligatoria)
+        // Validar selección de planificación
         int selectedPlanificacionId = radioPlanificacion.getCheckedRadioButtonId();
         if (selectedPlanificacionId == -1) {
             Toast.makeText(getContext(), "Por favor selecciona tu estilo de planificación", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Validar deportes (TipoP1 - al menos uno debe estar seleccionado)
-        // Validar si se seleccionó "Otro" pero no se escribió nada
+        // Validar deportes seleccionados
+        // Verificar campo "Otro" si está seleccionado
         if (cbDeportesOtro.isChecked()) {
             String otroDeporte = edtDeportesOtro.getText().toString().trim();
             if (TextUtils.isEmpty(otroDeporte)) {
@@ -185,11 +184,11 @@ public class FormularioPaso5Fragment extends Fragment {
             return;
         }
 
-        // Obtener valor seleccionado de planificación
+        // Obtener datos seleccionados
         RadioButton rbPlanificacion = getView().findViewById(selectedPlanificacionId);
         String planificacion = rbPlanificacion.getText().toString();
 
-        // Guardar datos
+        // Guardar y continuar
         if (getActivity() instanceof FormularioActivity) {
             Map<String, Object> datosPaso5 = new HashMap<>();
             datosPaso5.put("planificacion", planificacion);
@@ -238,7 +237,7 @@ public class FormularioPaso5Fragment extends Fragment {
                 if (planificacionObj instanceof String) {
                     String planificacion = (String) planificacionObj;
                     
-                    // Buscar el RadioButton que corresponde a la planificación guardada
+                    // Buscar RadioButton correspondiente
                     for (int i = 0; i < radioPlanificacion.getChildCount(); i++) {
                         View child = radioPlanificacion.getChildAt(i);
                         if (child instanceof RadioButton) {
@@ -287,7 +286,7 @@ public class FormularioPaso5Fragment extends Fragment {
                                 cbDeportesSenderismo.setChecked(true);
                                 break;
                             default:
-                                // Si no es una opción predefinida, es un valor personalizado
+                                // Valor personalizado en campo "Otro"
                                 cbDeportesOtro.setChecked(true);
                                 edtDeportesOtro.setText(deporte);
                                 edtDeportesOtro.setVisibility(View.VISIBLE);
@@ -303,3 +302,4 @@ public class FormularioPaso5Fragment extends Fragment {
         }
     }
 }
+
