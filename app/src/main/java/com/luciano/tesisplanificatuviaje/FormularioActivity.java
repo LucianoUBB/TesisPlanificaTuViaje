@@ -157,9 +157,40 @@ public class FormularioActivity extends AppCompatActivity {
         Log.d("FormularioActivity", "📧 Email del usuario: " + currentUser.getEmail());
 
         // Guardar en Firebase con manejo mejorado de errores
-        Log.d("FormularioActivity", "🔄 Intentando guardar preferencias para usuario: " + userId);
-        Log.d("FormularioActivity", "📝 Datos a guardar: " + datosTotales.toString());
+        Log.d("FormularioActivity", "Intentando guardar preferencias para usuario: " + userId);
+        Log.d("FormularioActivity", "Datos a guardar: " + datosTotales.toString());
         
+        // Separar datos básicos (perfil) de preferencias
+        Map<String, Object> datosBasicos = new HashMap<>();
+        Map<String, Object> preferencias = new HashMap<>(datosTotales);
+        
+        // Extraer datos básicos que deben ir en el documento principal
+        if (preferencias.containsKey("nombreUsuario")) {
+            datosBasicos.put("nombreUsuario", preferencias.get("nombreUsuario"));
+        }
+        if (preferencias.containsKey("edad")) {
+            datosBasicos.put("edad", preferencias.get("edad"));
+        }
+        if (preferencias.containsKey("sexo")) {
+            datosBasicos.put("sexo", preferencias.get("sexo"));
+        }
+        if (preferencias.containsKey("edadBloqueada")) {
+            datosBasicos.put("edadBloqueada", preferencias.get("edadBloqueada"));
+        }
+        
+        // Guardar datos básicos en el documento principal del usuario
+        if (!datosBasicos.isEmpty()) {
+            db.collection("usuarios").document(userId)
+                .set(datosBasicos, com.google.firebase.firestore.SetOptions.merge())
+                .addOnSuccessListener(unused -> {
+                    Log.d("FormularioActivity", "Datos básicos guardados en documento principal");
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("FormularioActivity", "Error guardando datos básicos: " + e.getMessage());
+                });
+        }
+        
+        // Guardar preferencias en subcolección
         db.collection("usuarios").document(userId).collection("preferencias").document("datos")
                 .set(datosTotales)
                 .addOnSuccessListener(unused -> {
@@ -274,31 +305,60 @@ public class FormularioActivity extends AppCompatActivity {
     }
     
     /**
-     * 📊 Cargar datos existentes del usuario para modo edición
+     * Cargar datos existentes del usuario para modo edición
      */
     private void cargarDatosExistentes() {
-        Log.d("FormularioActivity", "📥 Cargando datos existentes del usuario para edición");
+        Log.d("FormularioActivity", "Cargando datos existentes del usuario para edición");
         
+        // Primero cargar datos básicos del documento principal
+        db.collection("usuarios").document(userId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        Map<String, Object> datosBasicos = documentSnapshot.getData();
+                        if (datosBasicos != null) {
+                            // Cargar datos básicos (incluyendo edad y flag de bloqueo)
+                            datosTotales.putAll(datosBasicos);
+                            Log.d("FormularioActivity", "Datos básicos cargados del documento principal");
+                        }
+                    }
+                    
+                    // Luego cargar preferencias de la subcolección
+                    cargarPreferenciasSubcoleccion();
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("FormularioActivity", "Error cargando datos básicos: " + e.getMessage());
+                    // Intentar cargar solo las preferencias
+                    cargarPreferenciasSubcoleccion();
+                });
+    }
+    
+    private void cargarPreferenciasSubcoleccion() {
         db.collection("usuarios").document(userId).collection("preferencias").document("datos")
                 .get()
                 .addOnSuccessListener(documentSnapshot -> {
                     if (documentSnapshot.exists()) {
-                        // Cargar todos los datos existentes
+                        // Cargar datos de preferencias
                         Map<String, Object> datosFirestore = documentSnapshot.getData();
                         if (datosFirestore != null) {
-                            datosTotales.putAll(datosFirestore);
-                            Log.d("FormularioActivity", "✅ Datos existentes cargados: " + datosTotales.size() + " campos");
-                            Log.d("FormularioActivity", "📋 Datos cargados: " + datosTotales.toString());
+                            // Solo agregar datos que no existan ya (prioridad a datos básicos)
+                            for (Map.Entry<String, Object> entry : datosFirestore.entrySet()) {
+                                if (!datosTotales.containsKey(entry.getKey())) {
+                                    datosTotales.put(entry.getKey(), entry.getValue());
+                                }
+                            }
+                            Log.d("FormularioActivity", "Datos existentes cargados: " + datosTotales.size() + " campos");
+                            Log.d("FormularioActivity", "Datos cargados: " + datosTotales.toString());
                         }
                     } else {
-                        Log.w("FormularioActivity", "⚠️ No se encontraron datos existentes del usuario");
+                        Log.w("FormularioActivity", "No se encontraron datos existentes del usuario");
                     }
                     
                     // Cargar el primer paso después de cargar los datos
                     cargarPaso(pasoActual);
                 })
                 .addOnFailureListener(e -> {
-                    Log.e("FormularioActivity", "❌ Error al cargar datos existentes: " + e.getMessage());
+                    Log.e("FormularioActivity", "Error al cargar datos existentes: " + e.getMessage());
                     // Aún así cargar el primer paso
                     cargarPaso(pasoActual);
                 });
@@ -334,14 +394,14 @@ public class FormularioActivity extends AppCompatActivity {
                         Intent intent = new Intent(FormularioActivity.this, PerfilActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        finish();
                     } else {
                         // Modo normal: ir al mapa
                         Intent intent = new Intent(FormularioActivity.this, MapsActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        finish();
                     }
+                    // Llamar al comportamiento estándar del botón back
+                    FormularioActivity.super.onBackPressed();
                 })
                 .setNegativeButton("Continuar", (dialog, which) -> dialog.dismiss())
                 .show();

@@ -23,7 +23,7 @@ public class FormularioPaso1Fragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        android.util.Log.d("FormularioPaso1", "🔧 onCreateView iniciado");
+        android.util.Log.d("FormularioPaso1", "onCreateView iniciado");
         
         View view = inflater.inflate(R.layout.fragment_formulario_paso1, container, false);
         
@@ -71,7 +71,7 @@ public class FormularioPaso1Fragment extends Fragment {
     }
     
     private void validarYContinuar() {
-        android.util.Log.d("FormularioPaso1", "🔄 Iniciando validación del Paso 1");
+        android.util.Log.d("FormularioPaso1", "Iniciando validación del Paso 1");
         
         // Validar nombre de usuario
         String nombreUsuario = edtNombreUsuario.getText().toString().trim();
@@ -143,7 +143,13 @@ public class FormularioPaso1Fragment extends Fragment {
             datosPaso1.put("edad", edad);
             datosPaso1.put("sexo", sexo);
             
-            android.util.Log.d("FormularioPaso1", "📋 Datos del Paso 1: " + datosPaso1.toString());
+            // Si es la primera vez que se establece la edad, marcarla como bloqueada
+            if (edtEdad.isEnabled()) {
+                datosPaso1.put("edadBloqueada", true);
+                android.util.Log.d("FormularioPaso1", "Marcando edad como bloqueada permanentemente");
+            }
+            
+            android.util.Log.d("FormularioPaso1", "Datos del Paso 1: " + datosPaso1.toString());
             
             ((FormularioActivity) getActivity()).guardarPaso("paso1", datosPaso1);
             ((FormularioActivity) getActivity()).irAlSiguientePaso();
@@ -197,32 +203,93 @@ public class FormularioPaso1Fragment extends Fragment {
             if (getActivity() instanceof FormularioActivity) {
                 FormularioActivity activity = (FormularioActivity) getActivity();
                 
-                // Verificar si hay datos de edad ya guardados (modo edición)
-                Object edadObj = activity.getDatoPaso("edad");
-                
-                if (edadObj instanceof Integer) {
-                    // Hay edad guardada, está en modo edición
-                    android.util.Log.d("FormularioPaso1", "Modo edición detectado - Bloqueando edición de edad");
-                    
-                    // Deshabilitar la edición del campo edad
-                    edtEdad.setEnabled(false);
-                    edtEdad.setFocusable(false);
-                    edtEdad.setClickable(false);
-                    
-                    // Cambiar el color de fondo para indicar que no es editable
-                    edtEdad.setAlpha(0.6f);
-                    
-                    // Agregar hint explicativo
-                    edtEdad.setHint("Edad no editable");
-                    
-                    android.util.Log.d("FormularioPaso1", "Campo edad bloqueado para edición");
-                } else {
-                    // No hay edad guardada, es registro nuevo
-                    android.util.Log.d("FormularioPaso1", "Registro nuevo - Edad editable");
-                }
+                // Verificar si la edad ya fue establecida permanentemente
+                verificarEdadBloqueada(activity);
             }
         } catch (Exception e) {
             android.util.Log.e("FormularioPaso1", "Error configurando modo edición: " + e.getMessage());
+        }
+    }
+    
+    private void verificarEdadBloqueada(FormularioActivity activity) {
+        // Primero verificar en datos locales
+        Object edadBloqueadaObj = activity.getDatoPaso("edadBloqueada");
+        Object edadObj = activity.getDatoPaso("edad");
+        
+        if ((edadBloqueadaObj instanceof Boolean && (Boolean) edadBloqueadaObj) || 
+            (edadObj instanceof Integer)) {
+            // La edad ya está bloqueada permanentemente
+            bloquearCampoEdad();
+            return;
+        }
+        
+        // Verificar en Firebase si la edad ya fue establecida
+        verificarEdadEnFirebase();
+    }
+    
+    private void verificarEdadEnFirebase() {
+        // Verificar en Firebase si el usuario ya tiene edad establecida
+        if (getActivity() instanceof FormularioActivity) {
+            FormularioActivity activity = (FormularioActivity) getActivity();
+            
+            // Obtener referencia al usuario actual
+            com.google.firebase.auth.FirebaseUser currentUser = 
+                com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser();
+            
+            if (currentUser != null) {
+                String userId = currentUser.getUid();
+                
+                com.google.firebase.firestore.FirebaseFirestore.getInstance()
+                    .collection("usuarios")
+                    .document(userId)
+                    .get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            // Verificar si ya tiene edad establecida
+                            Long edadFirebase = documentSnapshot.getLong("edad");
+                            Boolean edadBloqueada = documentSnapshot.getBoolean("edadBloqueada");
+                            
+                            if (edadFirebase != null || (edadBloqueada != null && edadBloqueada)) {
+                                // La edad ya existe en Firebase, bloquear permanentemente
+                                android.util.Log.d("FormularioPaso1", "Edad encontrada en Firebase - Bloqueando permanentemente");
+                                bloquearCampoEdad();
+                                
+                                // Guardar en datos locales para futuras verificaciones
+                                Map<String, Object> datosBloqueo = new HashMap<>();
+                                if (edadFirebase != null) {
+                                    datosBloqueo.put("edad", edadFirebase.intValue());
+                                }
+                                datosBloqueo.put("edadBloqueada", true);
+                                activity.guardarPaso("edadInfo", datosBloqueo);
+                            } else {
+                                // Primera vez, edad editable
+                                android.util.Log.d("FormularioPaso1", "Primera vez - Edad editable");
+                            }
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        android.util.Log.e("FormularioPaso1", "Error verificando edad en Firebase: " + e.getMessage());
+                        // En caso de error, permitir edición (fail-safe)
+                    });
+            }
+        }
+    }
+    
+    private void bloquearCampoEdad() {
+        if (edtEdad != null) {
+            android.util.Log.d("FormularioPaso1", "Bloqueando campo edad permanentemente");
+            
+            // Deshabilitar completamente el campo
+            edtEdad.setEnabled(false);
+            edtEdad.setFocusable(false);
+            edtEdad.setClickable(false);
+            
+            // Cambiar apariencia para indicar que está bloqueado
+            edtEdad.setAlpha(0.5f);
+            edtEdad.setHint("Edad establecida permanentemente");
+            
+            // Opcional: cambiar color de fondo
+            edtEdad.setBackgroundColor(0xFFE0E0E0); // Gris claro
         }
     }
 }
