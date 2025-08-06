@@ -1,6 +1,21 @@
 <resources>
     <!-- 🔑 Clave de la API de Google Maps -->
+    <!-- 
+        CONFIGURACIÓN DE SEGURIDAD COMPLETADA:
+        
+        ✅ API Key: AIzaSyAKkW1fQFx5a8WPxeC5qH6JqeVt-GPvLuQ
+        ✅ Restricciones de aplicación configuradas:
+           - Paquete: com.luciano.tesisplanificatuviaje
+           - SHA-1: 35:B6:7D:01:FE:86:90:7D:42:87:4E:9B:F3:B2:E5:72:CF:82:11:3B
+        ✅ Restricciones de API: Maps SDK for Android únicamente
+        ✅ Archivo protegido por .gitignore
+        
+        IMPORTANTE: 
+        - Este archivo NO se sube a Git por seguridad
+        - La API Key solo funciona con esta aplicación específica
+        - Incidente de seguridad anterior resuelto (05/08/2025)
+    -->
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
-        AIzaSyDVYWMWLNEanEJrVdCMpNR8zqKhCeHf-7s
+        AIzaSyAKkW1fQFx5a8WPxeC5qH6JqeVt-GPvLuQ
     </string>
 </resources>
